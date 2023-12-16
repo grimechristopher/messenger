@@ -1,5 +1,5 @@
 // import sequelize from 'sequelize/types/sequelize';
-import { Model } from 'sequelize';
+import { Model, Op } from 'sequelize';
 
 interface AccountAttributes {
   id: string,
@@ -18,6 +18,22 @@ module.exports = (sequelize: any, DataTypes: any) => {
     static associate(models: any) {
       Account.belongsToMany(models.Conversation, {
         through: 'AccountConversation',
+      });
+    }
+
+    static async findByEmail(email: string) { 
+      return await Account.findOne({ raw: true, where: { email } });
+    }
+
+    static async searchForAccounts(searchString: string) {
+      return await Account.findAll({
+        attributes: ['id', 'username', 'email'],
+        where: {
+          [Op.or]: [
+            { username: { [Op.iLike]: '%' + searchString + '%' } },
+            { email: { [Op.iLike]: '%' + searchString + '%' } },
+          ]
+        }
       });
     }
   };
