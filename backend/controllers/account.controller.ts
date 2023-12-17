@@ -112,12 +112,13 @@ class AccountController {
   }
 
   async searchForAccounts(request: Request, response: Response) {
+    const userId = request.body.user.id;
     const searchString = request.query.searchString;
     if (!searchString) {
       return response.status(400).send('Missing search string');
     }
 
-    const accounts = await db.Account.searchForAccounts(searchString);
+    const accounts = await db.Account.searchForAccounts(searchString, userId);
     return response.status(200).json(accounts);
   }
 

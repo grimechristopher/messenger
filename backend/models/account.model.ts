@@ -25,14 +25,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
       return await Account.findOne({ raw: true, where: { email } });
     }
 
-    static async searchForAccounts(searchString: string) {
+    static async searchForAccounts(searchString: string, userId: string) {
       return await Account.findAll({
         attributes: ['id', 'username', 'email'],
         where: {
           [Op.or]: [
             { username: { [Op.iLike]: '%' + searchString + '%' } },
             { email: { [Op.iLike]: '%' + searchString + '%' } },
-          ]
+          ],
+          [Op.not]: { id: userId}
         }
       });
     }
