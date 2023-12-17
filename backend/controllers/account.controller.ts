@@ -94,8 +94,9 @@ class AccountController {
     // Password is verified. Create a JWT with the account data
     const token = jwt.sign(record, process.env.JWT_SECRET!, {expiresIn: 3600 * 24});
     // Store the JWT in a cookie
+
     const cookieOptions : CookieOptions = {
-      expires: new Date(Date.now() + 3600 * 24), 
+      expires: new Date(Date.now() + 3600 * 24 * 1000), // ms not s 
       secure: process.env.ENVIRONMENT === "Local" ? false : true, 
       httpOnly: true, 
       sameSite: "none"
