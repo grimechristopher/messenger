@@ -1,12 +1,12 @@
 <template>
   <div class="login-container">
-      <LoginForm
+      <RegisterForm
       />
   </div>
 </template>
 <script setup>
 
-import LoginForm from './LoginForm.vue';
+import RegisterForm from './RegisterForm.vue';
 
 </script>
 

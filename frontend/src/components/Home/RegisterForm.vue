@@ -1,0 +1,64 @@
+<template>
+  <div>
+    <form @submit.prevent="signUp()" class="mb-3">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" class="form-control" v-model="username" />
+      </div> 
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" id="email" name="email" class="form-control" v-model="email" />
+      </div> 
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" v-model="password" />
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary mb-3 form-control">Sign Up</button>
+      </div>
+    </form>
+    <p>Been here before? <RouterLink to="/">Login</RouterLink></p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+// import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
+// const store = useStore()
+const router = useRouter()
+
+const username = ref('')
+const email = ref('')
+const password = ref('')
+const errorMessage = ref('')
+
+async function signUp() {
+  const response = await fetch("http://localhost:3001/api/auth/signup", {
+    credentials: 'include', // Don't forget to include this in your requests. ALL OF THEM
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username.value,
+      email: email.value,
+      password: password.value,
+    }),
+  });
+  
+  if (response.status === 200) {
+    // let user = await response.json();
+    // if (user.isLoggedIn) {
+    //   await store.dispatch("signIn", user);
+    //   if (store.state.auth.user.isLoggedIn) {
+        router.push({ name: "Home" });
+      // }
+    // }
+  }
+  else {
+    errorMessage.value = await response.text()
+  }
+}
+</script>
