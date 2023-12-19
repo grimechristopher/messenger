@@ -8,12 +8,17 @@ import "bootstrap"
 
 // Routes and Router
 const HomePage = import('./components/Home/HomePage.vue');
+const RegisterPage = import('./components/Home/RegisterPage.vue');
+
 const MessagesPage = import('./components/MessagesPage.vue');
 const NewConversationPage = import('./components/NewConversationPage.vue');
+const ConversationPage = import('./components/ConversationPage.vue');
 
 const routes = [
-  { path: '/', component: HomePage },
+  { path: '/', component: HomePage, name: 'Home' },
+  { path: '/register/', component: RegisterPage, name: 'Register' },
   { path: '/messages/', component: MessagesPage, name: 'Messages' },
+  { path: '/messages/:conversationId', component: ConversationPage, name: 'Conversation'},
   { path: '/new-message/', component: NewConversationPage, name: 'NewConversation' },
 ];
 

@@ -17,26 +17,29 @@
 <script setup>
 import { ref } from 'vue';
 import { debounce } from './Utils/debounce.js';
+import { useRouter } from 'vue-router';
 
 const searchString = ref('');
 let accountOptions = ref([]);
 let selectedAccounts = ref([]);
 
-const searchAccounts = debounce( async () => {
-    if (searchString.value.length < 3) {
-      accountOptions.value = [];
-      return;
-    }
-  
-    const response = await fetch("http://localhost:3001/api/accounts/search/?" + new URLSearchParams({
-      searchString: searchString.value,
-    }), {
-      credentials: 'include',
-      method: "GET",
-    });
-    
-    accountOptions.value = await response.json();
-  })
+const router = useRouter();
+
+const searchAccounts = debounce(async () => {
+  if (searchString.value.length < 3) {
+    accountOptions.value = [];
+    return;
+  }
+
+  const response = await fetch("http://localhost:3001/api/accounts/search/?" + new URLSearchParams({
+    searchString: searchString.value,
+  }), {
+    credentials: 'include',
+    method: "GET",
+  });
+
+  accountOptions.value = await response.json();
+})
 
 function selectAccount(option) {
   option.isSelected = true; 
@@ -51,8 +54,22 @@ function deselectAccount(selected) {
   accountOptions.value[accountOptionsIndex].isSelected = false;
 }
 
-function createConversation() {
+async function createConversation() {
   console.log(selectedAccounts.value);
+  const response = await fetch("http://localhost:3001/api/conversations/create/", {
+    credentials: 'include',
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      participantIds: selectedAccounts.value.map(account => account.id),
+    }),
+  });
+  const conversation = await response.json();
+  // naviate to conversation page
+  router.push({ name: "Conversation", params: { conversationId: conversation.id } });
+  
 }
 
 </script>
