@@ -22,7 +22,12 @@ class Message extends Model<MessageAttributes> implements MessageAttributes {
   }
 
   static findAllByConversationId(conversationId: string) {
+    console.log("Find al by")
     return Message.findAll({
+      include: [{
+        model: sequelize.models.Account,
+        attributes: ['id', 'username'],
+      }],
       where: {
         conversationId: conversationId,
       },

@@ -17,11 +17,14 @@ app.use(cookieParser());
 import authRouter from './routes/auth.route'
 import accountRouter from './routes/account.route'
 import conversationRouter from './routes/conversation.route';
+import messageRouter from './routes/message.route';
 
 // routes
 app.use('/api/auth', authRouter);
 app.use('/api/accounts/', accountRouter);
 app.use('/api/conversations/', conversationRouter);
+app.use('/api/messages/', messageRouter);
+
 
 app.get('/api/', (req: Request, res: Response) => {
   res.send('Hello World!');
