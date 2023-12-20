@@ -1,7 +1,13 @@
 <template>
-  <div class="login-container">
+  <div class="home-container">
+    <div class="header-container">
+      <h1>Welcome To My Messenger</h1>
+      <p class="lead">Sign in and give my app a try</p>
+    </div>
+    <div class="login-container">
       <LoginForm
       />
+    </div>
   </div>
 </template>
 <script setup>
@@ -11,11 +17,26 @@ import LoginForm from './LoginForm.vue';
 </script>
 
 <style scoped>
+.home-container {
+  padding: 1.67rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.header-container {
+  text-align: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh; */
+}
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 </style>
