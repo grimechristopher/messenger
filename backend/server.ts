@@ -1,6 +1,7 @@
 import app from './app';
 import socket from './socket';
 import db from './models';
+import MessageSocket from './sockets/message.socket';
 
 const PORT = process.env.PORT || 3001;
 
@@ -11,3 +12,7 @@ const server = app.listen(PORT, () => {
 });
 
 const io = socket.getInstance(server);
+
+io.initializeSockets([
+  { path: '/messages', handler: new MessageSocket()}
+]);

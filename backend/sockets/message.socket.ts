@@ -1,13 +1,15 @@
 import { Socket } from "socket.io";
 import SocketInterface from "../interfaces/socketInterface";
 
-class OrdersSocket implements SocketInterface {
+class MessageSocket implements SocketInterface {
 
-   instanceMethods(socket: Socket) {
+    instanceMethods(socket: Socket, next: any) {
+        socket.on('hello', () => {
+            console.log("WORLD ")
+        });
 
-        socket.emit('connected');
-
+        return next();
     }
 }
 
-export default OrdersSocket;
+export default MessageSocket;

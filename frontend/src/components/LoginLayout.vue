@@ -1,23 +1,14 @@
 <template>
-  <LoginLayout>
-    {{ isConnected }}
-    <LoginForm
-    />
-  </LoginLayout>
+  <div class="home-container">
+    <div class="header-container">
+      <h1>Welcome To My Messenger</h1>
+      <p class="lead">Sign in and give my app a try</p>
+    </div>
+    <div class="login-container"> 
+      <slot></slot>
+    </div>
+  </div>
 </template>
-<script setup>
-import LoginLayout from '../LoginLayout.vue'; 
-import LoginForm from './LoginForm.vue';
-import { ref } from "vue";
-import { state, socket } from "@/socket";
-
-
-const isConnected = ref(false);
-isConnected.value = state.connected;
-socket.emit("hello", "world");
-socket.emit("world", "hello");
-
-</script>
 
 <style scoped>
 .home-container {

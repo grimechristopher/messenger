@@ -1,7 +1,7 @@
 import { Socket } from "socket.io";
 
 interface SocketInterface {
-   instanceMethods(socket: Socket): void;
+   instanceMethods(socket: Socket, next: any): void;
 }
 
 export default SocketInterface;

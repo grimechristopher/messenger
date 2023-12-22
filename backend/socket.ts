@@ -18,7 +18,22 @@ class Socket extends Server {
       Socket.io = new Socket(server);
     }
 
+    Socket.io.on('connection', (socket) => {
+      socket.on('world', () => {
+        console.log("WOOOOOOOOOO")
+      });
+    });
+
     return Socket.io;
+  }
+
+  public initializeSockets(sockets: Array<any>) {
+    console.log("sockets: ", sockets)
+    sockets.forEach((socket) => {
+      if (socket.handler.instanceMethods) {
+        Socket.io.use(socket.handler.instanceMethods)
+      }
+    });
   }
 }
 
