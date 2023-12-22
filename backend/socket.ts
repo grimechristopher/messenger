@@ -8,6 +8,7 @@ class Socket extends Server {
       cors: {
         origin: "http://localhost:8080",// Needs to be updated
         methods: ["GET", "POST"],
+        credentials: true
       }
     });
   }
