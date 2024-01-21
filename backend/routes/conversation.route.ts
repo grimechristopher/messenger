@@ -14,5 +14,9 @@ conversationRouter.post('/create/', verifyAuth, function(request,response) {
   conversationController.createConversation(request, response)
 });
 
+conversationRouter.get('/:id', verifyAuth, function(request,response) {
+  conversationController.getConversation(request, response)
+});
+
 
 export default conversationRouter;

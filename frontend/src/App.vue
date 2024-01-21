@@ -23,6 +23,11 @@
 //     // HelloWorld
 //   }
 // }
+
+import { useStore } from 'vuex';
+const store = useStore();
+store.commit('initializeStore');
+
 </script>
 
 <style>

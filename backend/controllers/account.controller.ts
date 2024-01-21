@@ -104,6 +104,7 @@ class AccountController {
 
     // respond with success and add the cookie
     const recordResponse = {
+      id: record.id,
       username: record.username,
       email: record.email,
       isLoggedIn: true,

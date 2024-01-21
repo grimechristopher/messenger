@@ -1,8 +1,9 @@
 
 export const auth = {
-  state () {
+  state() {
     return {
       user: {
+        userId: null,
         username: null,
         email: null,
         isLoggedIn: false,
@@ -10,19 +11,18 @@ export const auth = {
     }
   },
   actions: {
-    signIn ({ commit }, user) {
+    signIn({ commit }, user) {
       if (user) {
-        console.log('user', user)
         commit('signInUser', user);
       }
     }
   },
   mutations: {
-    signInUser (state, data) {
-      console.log('data', data)
+    signInUser(state, data) {
+      state.user.userId = data.id;
       state.user.username = data.username;
       state.user.email = data.email;
       state.user.isLoggedIn = true;
-    }
+    },
   }
 };

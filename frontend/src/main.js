@@ -31,6 +31,10 @@ const router = VueRouter.createRouter({
 // Vuex Store
 import store from './store'
 
+store.subscribe((mutation, state) => {
+	localStorage.setItem('store', JSON.stringify(state));
+});
+
 createApp(App)
   .use(router)
   .use(store)

@@ -33,18 +33,53 @@ class ConversationController {
   async getConversations(request: Request, response: Response) {
     const userId = request.body.user.id;
 
-    let conversations = await db.Conversation.findAll({
+
+    let conversations = await db.Account.findOne({
+      where: {
+        id: userId
+      },
       include: [{
-        model: db.Account,
-        where: {
-          id: userId
-        }
+        model: db.Conversation,
+        as: 'Conversations',
+        include: [{
+          model: db.Account,
+          as: 'Accounts',
+          attributes: ['id', 'username', 'email'],
+          where: {
+            id: {
+              [db.Sequelize.Op.not]: userId
+            }
+          }
+        }]
       }]
     });
 
     return response.status(200).json(conversations);
   }
 
+  async getConversation(request: Request, response: Response) {
+    const conversationId = request.params.id;
+    const userId = request.body.user.id;
+
+    let conversation = await db.Conversation.findOne({
+      where: {
+        id: conversationId
+      },
+      include: [{
+        model: db.Account,
+        as: 'Accounts',
+        attributes: ['id', 'username', 'email'],
+        where: {
+          id: {
+            [db.Sequelize.Op.not]: userId
+          }
+        }
+      }]
+    });
+
+    return response.status(200).json(conversation);
+
+  }
   
   
 }

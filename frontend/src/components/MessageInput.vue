@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="input-group mb-1">
     <input type="text" class="form-control" v-model="message" />
-    <button @click="sendMessage">Send</button>
+    <button class="btn btn-outline-primary" @click="sendMessage">Send</button>
   </div>
 </template>
 
@@ -15,6 +15,10 @@ const route = useRoute();
 const conversationId = route.params.conversationId;
 
 async function sendMessage() {
+  if (!message.value) {
+    return;
+  }
+
   await fetch("http://localhost:3001/api/messages/create/", {
     credentials: 'include',
     method: "POST",

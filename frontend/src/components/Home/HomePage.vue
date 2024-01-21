@@ -31,10 +31,6 @@ socket.emit("world", "hello");
 
 .header-container {
   text-align: center;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20vh; */
 }
 .login-container {
   display: flex;

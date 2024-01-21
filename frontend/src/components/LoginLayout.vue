@@ -2,7 +2,7 @@
   <div class="home-container">
     <div class="header-container">
       <h1>Welcome To My Messenger</h1>
-      <p class="lead">Sign in and give my app a try</p>
+      <p class="lead">Sign in to start messaging</p>
     </div>
     <div class="login-container"> 
       <slot></slot>
